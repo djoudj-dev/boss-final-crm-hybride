@@ -1,3 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+@theme {
+  --color-islands-bg: #1e1f22;
+  --color-islands-surface: #2b2d30;
+  --color-islands-border: #3c3f41;
+  --color-islands-text: #bcbec4;
+  --color-islands-text-muted: #8b8d91;
+  --color-islands-blue: #6c9ced;
+  --color-islands-green: #4e9a06;
+  --color-islands-red: #f75464;
+  --color-islands-orange: #e08f3a;
+  --color-islands-purple: #b07cd8;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-islands-bg);
+  color: var(--color-islands-text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

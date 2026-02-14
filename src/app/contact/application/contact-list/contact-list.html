@@ -1,0 +1,106 @@
+<section aria-labelledby="contact-list-title" class="space-y-6">
+  <header class="flex items-center justify-between">
+    <h1 id="contact-list-title" class="text-2xl font-semibold text-islands-text" data-testid="contact-list-title">Contacts</h1>
+    <a
+      routerLink="/contacts/new"
+      data-testid="btn-add-contact"
+      class="bg-islands-blue text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity"
+    >
+      + Ajouter un contact
+    </a>
+  </header>
+
+  <div role="toolbar" aria-label="Filtres et tri des contacts" class="flex flex-wrap items-center gap-3">
+    <span id="filter-label" class="text-sm text-islands-text-muted">Filtrer :</span>
+    <div role="group" aria-labelledby="filter-label" class="flex flex-wrap items-center gap-2">
+      <button
+        (click)="setFilterStatut(null)"
+        data-testid="filter-all"
+        [attr.aria-pressed]="filterStatut() === null"
+        [class]="'px-3 py-1 rounded-lg text-sm font-medium transition-colors ' +
+          (filterStatut() === null ? 'bg-islands-blue text-white' : 'bg-islands-surface text-islands-text-muted border border-islands-border hover:text-islands-text')"
+      >
+        Tous
+      </button>
+      @for (statut of statuts; track statut) {
+        <button
+          (click)="setFilterStatut(statut)"
+          [attr.data-testid]="'filter-' + statut"
+          [attr.aria-pressed]="filterStatut() === statut"
+          [class]="'px-3 py-1 rounded-lg text-sm font-medium transition-colors ' +
+            (filterStatut() === statut ? 'bg-islands-blue text-white' : 'bg-islands-surface text-islands-text-muted border border-islands-border hover:text-islands-text')"
+        >
+          {{ statut }}
+        </button>
+      }
+    </div>
+
+    <span id="sort-label" class="text-sm text-islands-text-muted ml-4">Trier par :</span>
+    <div role="group" aria-labelledby="sort-label" class="flex items-center gap-2">
+      <button
+        (click)="setSortBy('statut')"
+        data-testid="sort-statut"
+        [attr.aria-pressed]="sortBy() === 'statut'"
+        [class]="'px-3 py-1 rounded-lg text-sm font-medium transition-colors ' +
+          (sortBy() === 'statut' ? 'bg-islands-purple text-white' : 'bg-islands-surface text-islands-text-muted border border-islands-border hover:text-islands-text')"
+      >
+        Statut
+      </button>
+      <button
+        (click)="setSortBy('derniere-interaction')"
+        data-testid="sort-interaction"
+        [attr.aria-pressed]="sortBy() === 'derniere-interaction'"
+        [class]="'px-3 py-1 rounded-lg text-sm font-medium transition-colors ' +
+          (sortBy() === 'derniere-interaction' ? 'bg-islands-purple text-white' : 'bg-islands-surface text-islands-text-muted border border-islands-border hover:text-islands-text')"
+      >
+        Derniere interaction
+      </button>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg border border-islands-border">
+    <table class="w-full text-sm" data-testid="contacts-table">
+      <caption class="sr-only">Liste des contacts avec leur poste, entreprise et statut</caption>
+      <thead class="bg-islands-surface text-islands-text-muted">
+        <tr>
+          <th scope="col" class="text-left px-4 py-3 font-medium">Nom</th>
+          <th scope="col" class="text-left px-4 py-3 font-medium">Poste</th>
+          <th scope="col" class="text-left px-4 py-3 font-medium">Entreprise</th>
+          <th scope="col" class="text-left px-4 py-3 font-medium">Statut</th>
+          <th scope="col" class="text-left px-4 py-3 font-medium">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (contact of filteredContacts(); track contact.id) {
+          <tr
+            class="border-t border-islands-border hover:bg-islands-surface/50 transition-colors"
+            [attr.data-testid]="'contact-row-' + contact.id"
+          >
+            <td class="px-4 py-3 text-islands-text">{{ contact.prenom }} {{ contact.nom }}</td>
+            <td class="px-4 py-3 text-islands-text-muted">{{ contact.poste }}</td>
+            <td class="px-4 py-3 text-islands-text-muted">{{ contact.entreprise }}</td>
+            <td class="px-4 py-3">
+              <app-status-badge [statut]="contact.statut" />
+            </td>
+            <td class="px-4 py-3">
+              <button
+                (click)="navigateToInteraction(contact.id)"
+                [attr.data-testid]="'btn-interaction-' + contact.id"
+                [attr.aria-label]="'Ajouter une interaction pour ' + contact.prenom + ' ' + contact.nom"
+                class="text-islands-blue hover:text-white text-sm transition-colors"
+              >
+                + Interaction
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="px-4 py-8 text-center text-islands-text-muted" data-testid="empty-message">
+              Aucun contact trouve
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

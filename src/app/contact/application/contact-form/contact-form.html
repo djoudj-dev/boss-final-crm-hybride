@@ -1,0 +1,151 @@
+<section aria-labelledby="contact-form-title" class="max-w-2xl mx-auto">
+  <h1 id="contact-form-title" class="text-2xl font-semibold text-islands-text mb-6" data-testid="contact-form-title">
+    Nouveau contact
+  </h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6" data-testid="contact-form">
+    <fieldset class="space-y-4">
+      <legend class="text-sm font-semibold text-islands-text mb-2">Identite</legend>
+
+      <div>
+        <label for="nom" class="block text-sm font-medium text-islands-text-muted mb-1">Nom *</label>
+        <input
+          id="nom"
+          formControlName="nom"
+          autocomplete="family-name"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.nom.touched && form.controls.nom.invalid"
+          [attr.aria-describedby]="form.controls.nom.touched && form.controls.nom.errors?.['required'] ? 'error-nom' : null"
+          data-testid="input-nom"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+        @if (form.controls.nom.touched && form.controls.nom.errors?.['required']) {
+          <p id="error-nom" role="alert" class="text-islands-red text-sm mt-1" data-testid="error-nom">Le nom est requis</p>
+        }
+      </div>
+
+      <div>
+        <label for="prenom" class="block text-sm font-medium text-islands-text-muted mb-1">Prenom *</label>
+        <input
+          id="prenom"
+          formControlName="prenom"
+          autocomplete="given-name"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.prenom.touched && form.controls.prenom.invalid"
+          [attr.aria-describedby]="form.controls.prenom.touched && form.controls.prenom.errors?.['required'] ? 'error-prenom' : null"
+          data-testid="input-prenom"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+        @if (form.controls.prenom.touched && form.controls.prenom.errors?.['required']) {
+          <p id="error-prenom" role="alert" class="text-islands-red text-sm mt-1" data-testid="error-prenom">Le prenom est requis</p>
+        }
+      </div>
+
+      <div>
+        <label for="poste" class="block text-sm font-medium text-islands-text-muted mb-1">Poste *</label>
+        <input
+          id="poste"
+          formControlName="poste"
+          autocomplete="organization-title"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.poste.touched && form.controls.poste.invalid"
+          [attr.aria-describedby]="form.controls.poste.touched && form.controls.poste.errors?.['required'] ? 'error-poste' : null"
+          data-testid="input-poste"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+        @if (form.controls.poste.touched && form.controls.poste.errors?.['required']) {
+          <p id="error-poste" role="alert" class="text-islands-red text-sm mt-1" data-testid="error-poste">Le poste est requis</p>
+        }
+      </div>
+
+      <div>
+        <label for="entreprise" class="block text-sm font-medium text-islands-text-muted mb-1">Entreprise *</label>
+        <input
+          id="entreprise"
+          formControlName="entreprise"
+          autocomplete="organization"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.entreprise.touched && form.controls.entreprise.invalid"
+          [attr.aria-describedby]="form.controls.entreprise.touched && form.controls.entreprise.errors?.['required'] ? 'error-entreprise' : null"
+          data-testid="input-entreprise"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+        @if (form.controls.entreprise.touched && form.controls.entreprise.errors?.['required']) {
+          <p id="error-entreprise" role="alert" class="text-islands-red text-sm mt-1" data-testid="error-entreprise">L'entreprise est requise</p>
+        }
+      </div>
+    </fieldset>
+
+    <fieldset class="space-y-4">
+      <legend class="text-sm font-semibold text-islands-text mb-2">Coordonnees</legend>
+      <p class="text-sm text-islands-text-muted">
+        Au moins un moyen de contact est requis (email, telephone ou LinkedIn).
+      </p>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-islands-text-muted mb-1">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
+          [attr.aria-describedby]="form.controls.email.touched && form.controls.email.errors?.['email'] ? 'error-email' : null"
+          data-testid="input-email"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+        @if (form.controls.email.touched && form.controls.email.errors?.['email']) {
+          <p id="error-email" role="alert" class="text-islands-red text-sm mt-1" data-testid="error-email">Email invalide</p>
+        }
+      </div>
+
+      <div>
+        <label for="telephone" class="block text-sm font-medium text-islands-text-muted mb-1">Telephone</label>
+        <input
+          id="telephone"
+          type="tel"
+          formControlName="telephone"
+          autocomplete="tel"
+          data-testid="input-telephone"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+      </div>
+
+      <div>
+        <label for="linkedin" class="block text-sm font-medium text-islands-text-muted mb-1">LinkedIn</label>
+        <input
+          id="linkedin"
+          type="url"
+          formControlName="linkedin"
+          autocomplete="url"
+          data-testid="input-linkedin"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+      </div>
+
+      @if (form.touched && form.errors?.['atLeastOneContact']) {
+        <p role="alert" class="text-islands-red text-sm" data-testid="error-at-least-one">
+          Au moins un moyen de contact est requis
+        </p>
+      }
+    </fieldset>
+
+    <footer class="flex gap-3 pt-4">
+      <button
+        type="submit"
+        data-testid="btn-submit"
+        [disabled]="form.invalid"
+        class="bg-islands-blue text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Creer le contact
+      </button>
+      <a
+        routerLink="/contacts"
+        data-testid="btn-cancel"
+        class="bg-islands-surface border border-islands-border text-islands-text px-6 py-2 rounded-lg font-medium hover:bg-islands-border transition-colors"
+      >
+        Annuler
+      </a>
+    </footer>
+  </form>
+</section>

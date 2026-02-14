@@ -1,0 +1,46 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "nom": "Dupont",
+      "prenom": "Marie",
+      "poste": "Directrice Marketing",
+      "entreprise": "TechCorp",
+      "email": "marie.dupont@techcorp.fr",
+      "telephone": "06 12 34 56 78",
+      "linkedin": "",
+      "statut": "CLIENT",
+      "dateCreation": "2025-11-15T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "nom": "Martin",
+      "prenom": "Lucas",
+      "poste": "CTO",
+      "entreprise": "StartupIO",
+      "email": "",
+      "telephone": "",
+      "linkedin": "https://linkedin.com/in/lucas-martin",
+      "statut": "PERDU",
+      "dateCreation": "2026-01-20T14:00:00.000Z"
+    }
+  ],
+  "interactions": [
+    {
+      "id": 1,
+      "contactId": 1,
+      "type": "email",
+      "notes": "Envoi de la proposition commerciale pour le projet CRM",
+      "date": "2026-02-01T09:00:00.000Z",
+      "nouveauStatut": "CLIENT"
+    },
+    {
+      "contactId": 2,
+      "type": "linkedin",
+      "notes": "parti sans rien dire",
+      "date": "2026-02-14T00:00:00.000Z",
+      "nouveauStatut": "PERDU",
+      "id": 2
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+<section aria-labelledby="interaction-form-title" class="max-w-2xl mx-auto">
+  @if (contact(); as contact) {
+    <h1
+      id="interaction-form-title"
+      class="text-2xl font-semibold text-islands-text mb-2"
+      data-testid="interaction-form-title"
+    >
+      Nouvelle interaction
+    </h1>
+    <p class="text-islands-text-muted mb-6" data-testid="interaction-contact-name">
+      Contact : {{ contact.prenom }} {{ contact.nom }}
+    </p>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="space-y-4"
+      data-testid="interaction-form"
+    >
+      <div>
+        <label for="type" class="block text-sm font-medium text-islands-text-muted mb-1">
+          Type d'interaction *
+        </label>
+        <select
+          id="type"
+          formControlName="type"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.type.touched && form.controls.type.invalid"
+          [attr.aria-describedby]="
+            form.controls.type.touched && form.controls.type.errors?.['required']
+              ? 'error-type'
+              : null
+          "
+          data-testid="select-type"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        >
+          @if (availableTypes().length !== 1) {
+            <option value="">-- Sélectionner --</option>
+          }
+          @for (type of availableTypes(); track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+        @if (form.controls.type.touched && form.controls.type.errors?.['required']) {
+          <p
+            id="error-type"
+            role="alert"
+            class="text-islands-red text-sm mt-1"
+            data-testid="error-type"
+          >
+            Le type est requis
+          </p>
+        }
+      </div>
+
+      <div>
+        <label for="notes" class="block text-sm font-medium text-islands-text-muted mb-1">
+          Notes *
+        </label>
+        <textarea
+          id="notes"
+          formControlName="notes"
+          rows="4"
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.notes.touched && form.controls.notes.invalid"
+          [attr.aria-describedby]="
+            form.controls.notes.touched && form.controls.notes.errors?.['required']
+              ? 'error-notes'
+              : null
+          "
+          data-testid="input-notes"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue resize-y"
+        ></textarea>
+        @if (form.controls.notes.touched && form.controls.notes.errors?.['required']) {
+          <p
+            id="error-notes"
+            role="alert"
+            class="text-islands-red text-sm mt-1"
+            data-testid="error-notes"
+          >
+            Les notes sont requises
+          </p>
+        }
+      </div>
+
+      <div>
+        <label for="date" class="block text-sm font-medium text-islands-text-muted mb-1">
+          Date *
+        </label>
+        <input
+          id="date"
+          type="date"
+          formControlName="date"
+          aria-required="true"
+          data-testid="input-date"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        />
+      </div>
+
+      <div>
+        <label for="nouveauStatut" class="block text-sm font-medium text-islands-text-muted mb-1">
+          Nouveau statut
+        </label>
+        <select
+          id="nouveauStatut"
+          formControlName="nouveauStatut"
+          data-testid="select-statut"
+          class="w-full bg-islands-surface border border-islands-border rounded-lg px-3 py-2 text-islands-text focus:outline-none focus:border-islands-blue"
+        >
+          @for (statut of statuts; track statut) {
+            <option [value]="statut">{{ statut }}</option>
+          }
+        </select>
+      </div>
+
+      <footer class="flex gap-3 pt-4">
+        <button
+          type="submit"
+          data-testid="btn-submit"
+          [disabled]="form.invalid"
+          class="bg-islands-blue text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Enregistrer
+        </button>
+        <a
+          routerLink="/contacts"
+          data-testid="btn-cancel"
+          class="bg-islands-surface border border-islands-border text-islands-text px-6 py-2 rounded-lg font-medium hover:bg-islands-border transition-colors"
+        >
+          Annuler
+        </a>
+      </footer>
+    </form>
+  } @else {
+    <p class="text-islands-text-muted" role="status" data-testid="loading">
+      Chargement du contact...
+    </p>
+  }
+</section>
